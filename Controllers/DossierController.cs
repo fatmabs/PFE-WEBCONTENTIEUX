@@ -1,17 +1,9 @@
-﻿
-
-//namespace WebAppContentieux.Controllers
-//{
-//    [Route("api/[controller]")]
-//    [ApiController]
-//    public class DossierController : ControllerBase
-//    {
-//    }
-//}
-using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -27,15 +19,17 @@ namespace WebAppContentieux.Controllers
     [EnableCors("AllowOrigin")]
     public class DossierController : Controller
     {
-        public IActionResult Index()
-        {
-            return View();
-        }
+
         private readonly IConfiguration _configuration;
         public DossierController(IConfiguration configuration)
         {
             _configuration = configuration;
         }
+        public IActionResult Index()
+        {
+            return View();
+        }
+
 
         [HttpGet]
         public JsonResult Get()
@@ -61,7 +55,6 @@ namespace WebAppContentieux.Controllers
 
             return new JsonResult(table);
         }
-
 
         [HttpPost]
         public JsonResult Post(Dossier objDossier)
@@ -151,5 +144,28 @@ namespace WebAppContentieux.Controllers
             return new JsonResult("Deleted Successfully");
         }
 
+
+        //[Route("dashboard")]
+        //public JsonResult GetDashboard()
+        //{
+
+        //    string query = @"select sum(Montant_Du) from db.Dossier";
+        //    string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
+        //    using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+        //    {
+        //        SqlCommand cmd = new SqlCommand(query, myCon);
+
+        //        myCon.Open();
+
+        //        JObject oValue = (JObject)(decimal)cmd.ExecuteScalar();
+
+
+
+        //        return (JsonResult)oValue;
+
+
+        //    }
+
+        //}
     }
 }

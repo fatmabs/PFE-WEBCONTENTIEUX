@@ -16,11 +16,11 @@ namespace WebAppContentieux.Models
         [Column(TypeName = "nvarchar(10)")]
         public string Numero_dossier { get; set; }
         [Column(TypeName = "money)")]
-        public float Montant_Du { get ; set; }
+        public decimal Montant_Du { get ; set; }
         [Column(TypeName = "money")]
-        public float Montant_Recouvre { get; set; }
+        public decimal Montant_Recouvre { get; set; }
         [Column(TypeName = "money")]
-        public float Montant_Restant { get; set; }
+        public decimal Montant_Restant { get; set; }
         [Column(TypeName = "nvarchar(20)")]
         public string Situation { get; set; }
         [Column(TypeName = "nvarchar(20)")]
@@ -32,7 +32,7 @@ namespace WebAppContentieux.Models
         [Column(TypeName = "nvarchar(15)")]
         public string Etat_Etape_Statut { get; set; }
         [Column(TypeName = "money")]
-        public float Frais_Ajoute { get; set; }
+        public decimal Frais_Ajoute { get; set; }
         public int Documents_Dossier_Id { get; set; }
     }
 }

@@ -1,16 +1,4 @@
-﻿
-//namespace WebAppContentieux.Controllers
-//{
-//    public class ClientController : Controller
-//    {
-//        public IActionResult Index()
-//        {
-//            return View();
-//        }
-//    }
-//}
-
-using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -60,6 +48,7 @@ namespace WebAppContentieux.Controllers
             }
 
             return new JsonResult(table);
+          
         }
 
 
