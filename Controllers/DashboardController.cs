@@ -29,6 +29,7 @@ namespace WebAppContentieux.Controllers
         {
 
             string query = @"select sum(Montant_Du) as MontantTotal, sum(Montant_Recouvre) as MontantRecouvreTotal , sum(Montant_Restant) as MontantRestantTotal from dbo.Dossiers";
+            query += "select count(DossierId) as NombreDossiers from dbo.Dossiers"
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
             SqlDataReader myReader;
