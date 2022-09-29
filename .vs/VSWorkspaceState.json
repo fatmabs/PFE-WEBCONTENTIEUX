@@ -1,9 +1,7 @@
 {
   "ExpandedNodes": [
-    "",
-    "\\Controllers",
-    "\\Models"
+    ""
   ],
-  "SelectedNode": "\\WebAppContentieux.sln",
+  "SelectedNode": "\\WebAppContentieux.csproj.user",
   "PreviewInSolutionExplorer": false
 }

@@ -15,12 +15,14 @@ namespace WebAppContentieux.Models
         public string Nom_Client { get; set; }
         [Column(TypeName = "nvarchar(10)")]
         public string Numero_dossier { get; set; }
-        [Column(TypeName = "money)")]
-        public decimal Montant_Du { get ; set; }
-        [Column(TypeName = "money")]
-        public decimal Montant_Recouvre { get; set; }
-        [Column(TypeName = "money")]
-        public decimal Montant_Restant { get; set; }
+        //[Column(TypeName = "int")]
+        //public string ClientId { get; set; }
+        [Column(TypeName = "float")]
+        public float Montant_Du { get ; set; }
+        [Column(TypeName = "float")]
+        public float Montant_Recouvre { get; set; }
+        [Column(TypeName = "float")]
+        public float Montant_Restant { get; set; }
         [Column(TypeName = "nvarchar(20)")]
         public string Situation { get; set; }
         [Column(TypeName = "nvarchar(20)")]
@@ -31,8 +33,10 @@ namespace WebAppContentieux.Models
         public string Etape_statut { get; set; }
         [Column(TypeName = "nvarchar(15)")]
         public string Etat_Etape_Statut { get; set; }
-        [Column(TypeName = "money")]
-        public decimal Frais_Ajoute { get; set; }
+        [Column(TypeName = "float")]
+        public float Frais_Ajoute { get; set; }
         public int Documents_Dossier_Id { get; set; }
+        [Column(TypeName = "date")]
+        public string Date_Creation { get; set; }
     }
 }

@@ -25,35 +25,73 @@ namespace WebAppContentieux.Controllers
             _configuration = configuration;
         }
 
-        public JsonResult GetDashboard()
+        //public JsonResult GetTotalMoney()
+        //{
+
+        //    string query1 = @"select sum(d.Montant_Du) as MontantTotal, sum(d.Montant_Recouvre) as MontantRecouvreTotal,sum(d.Montant_Restant) as MontantRestantTotal from dbo.Dossiers d";
+            
+        //    DataTable table = new DataTable();
+
+        //    string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
+
+        //    using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+        //    {
+                
+        //        myCon.Open();
+
+        //        using (SqlDataAdapter myDataAdapter = new SqlDataAdapter(query1, myCon))
+
+        //            myDataAdapter.Fill(table);
+
+        //        myCon.Close();
+                
+        //    }
+
+        //    return new JsonResult(table);
+ 
+        //    }
+
+        public JArray GetTotalMoney()
         {
+            string string1 ="";
+            string string2 = "";
+            string string3 = "";
+            string string4 = "";
 
-            string query = @"select sum(Montant_Du) as MontantTotal, sum(Montant_Recouvre) as MontantRecouvreTotal , sum(Montant_Restant) as MontantRestantTotal from dbo.Dossiers";
-            query += "select count(DossierId) as NombreDossiers from dbo.Dossiers"
-            DataTable table = new DataTable();
+            string query1 = @"select sum(d.Montant_Du) from dbo.Dossiers d";
+            string query2 = @"select sum(d.Montant_Recouvre) from dbo.Dossiers d";
+            string query4 = @"select count(ClientId) from dbo.Client";
+            
             string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
-            SqlDataReader myReader;
+
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-            {
-                
+            {   SqlCommand cmd1 = new SqlCommand(query1, myCon);
+                SqlCommand cmd2 = new SqlCommand(query2, myCon);
+                 SqlCommand cmd4 = new SqlCommand(query4, myCon);
+
                 myCon.Open();
-                using (SqlCommand cmd = new SqlCommand(query, myCon))
-                
-                
-                    myReader = cmd.ExecuteReader();
-                    table.Load(myReader);
+                 Object Value1 = cmd1.ExecuteScalar();
+                 Object Value2 = cmd2.ExecuteScalar();
 
-                    myReader.Close();
-                    myCon.Close();
-                
+                 Object Value4 = cmd4.ExecuteScalar();
+                myCon.Close();
+
+                string1 = Value1.ToString();
+                string2 =  Value2.ToString();
+                float Value3 = float.Parse(string1) - float.Parse(string2);
+                string3 =  Value3.ToString();
+                string4 =  Value4.ToString();
             }
+            string str = " [{\"MontantTotal\":"
+                + string1 + ",\"MontantRecouvreTotal\":"
+                + string2 + ",\"MontantRestantTotal\":"
+                + string3 + ",\"nombreclients\":" +
+                string4 + "}]";
+            JArray json = JArray.Parse(str);
 
-
-            return new JsonResult(table);
-
-
-            }
+            return json;
 
         }
+    }
     }
 
