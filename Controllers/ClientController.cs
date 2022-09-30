@@ -32,7 +32,7 @@ namespace WebAppContentieux.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"Select ClientId, Nom_Client, Numero_Telephone, CIN, Email, Banque , Adresse, Ville, Raison_Sociale, Matricule_Fiscale from dbo.Client"; 
+            string query = @"Select c.Nom_Client, c.Numero_Telephone, c.CIN, c.Email, c.Banque , c.Adresse, c.Ville, c.Raison_Sociale, c.Matricule_Fiscale, f.Date_Facture, f.Net_a_Payer, f.Scan_Facture from dbo.Client as c , dbo.Facture as f where c.ClientId=f.ClientId "; 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
             SqlDataReader myReader;
@@ -73,7 +73,6 @@ namespace WebAppContentieux.Controllers
         [HttpPut]
         public JsonResult Put(Client objClient)
         {
-
             string query = @"Update dbo.Client set
                 Nom_Client = '" + objClient.Nom_Client + @"',
                 Numero_Telephone='" + objClient.Numero_Telephone + @"',
@@ -100,7 +99,6 @@ namespace WebAppContentieux.Controllers
             }
             return new JsonResult("Updated Successfully");
         }
-
 
         [HttpDelete("{id}")]
         public JsonResult Delete(int id)

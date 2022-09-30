@@ -25,31 +25,6 @@ namespace WebAppContentieux.Controllers
             _configuration = configuration;
         }
 
-        //public JsonResult GetTotalMoney()
-        //{
-
-        //    string query1 = @"select sum(d.Montant_Du) as MontantTotal, sum(d.Montant_Recouvre) as MontantRecouvreTotal,sum(d.Montant_Restant) as MontantRestantTotal from dbo.Dossiers d";
-            
-        //    DataTable table = new DataTable();
-
-        //    string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
-
-        //    using (SqlConnection myCon = new SqlConnection(sqlDataSource))
-        //    {
-                
-        //        myCon.Open();
-
-        //        using (SqlDataAdapter myDataAdapter = new SqlDataAdapter(query1, myCon))
-
-        //            myDataAdapter.Fill(table);
-
-        //        myCon.Close();
-                
-        //    }
-
-        //    return new JsonResult(table);
- 
-        //    }
 
         public JArray GetTotalMoney()
         {
@@ -95,3 +70,17 @@ namespace WebAppContentieux.Controllers
     }
     }
 
+//public JsonResult GetTotalMoney()
+//{
+//    string query1 = @"select sum(d.Montant_Du) as MontantTotal, sum(d.Montant_Recouvre) as MontantRecouvreTotal,sum(d.Montant_Restant) as MontantRestantTotal from dbo.Dossiers d";
+//    DataTable table = new DataTable();
+//    string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
+//    using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+//    {
+//        myCon.Open();
+//        using (SqlDataAdapter myDataAdapter = new SqlDataAdapter(query1, myCon))
+//            myDataAdapter.Fill(table);
+//        myCon.Close();
+//    }
+//    return new JsonResult(table);
+//    }

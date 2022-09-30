@@ -62,6 +62,7 @@ namespace WebAppContentieux.Controllers
             string fullPath = facture.Scan_Facture;
             var googledriverepo = new GoogleDriveFilesRespository();
             string  fileUrl= googledriverepo.UploadImage(fullPath, "");
+            System.IO.File.Delete(facture.Scan_Facture);
 
             string query = @"Insert into dbo.Facture values('" + facture.Date_Facture + "','" + facture.Net_a_Payer + "','" + fileUrl + "','" + facture.ClientId + "')";
             DataTable table = new DataTable();

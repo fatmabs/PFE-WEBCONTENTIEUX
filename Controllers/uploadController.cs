@@ -41,25 +41,3 @@ namespace WebAppContentieux.Controllers
         }
     }
 }
-////cmd.Parameters.AddWithValue("@Nom_Client", objClient.Nom_Client);
-////cmd.Parameters.AddWithValue("@Numero_Telephone", objClient.Numero_Telephone);
-////cmd.Parameters.AddWithValue("@CIN", objClient.CIN);
-////cmd.Parameters.AddWithValue("@Email", objClient.Email);
-////cmd.Parameters.AddWithValue("@Banque", objClient.Banque);
-////cmd.Parameters.AddWithValue("@Adresse", objClient.Adresse);
-////cmd.Parameters.AddWithValue("@Ville", objClient.Ville);
-////cmd.Parameters.AddWithValue("@Raison_Sociale", objClient.Raison_Sociale);
-////cmd.Parameters.AddWithValue("@Matricule_Fiscale", objClient.Matricule_Fiscale);
-//cmd.Parameters.Add("@Nom_Client", SqlDbType.VarChar).Value = objClient.Nom_Client;
-//cmd.Parameters.Add("@Numero_Telephone", SqlDbType.VarChar).Value = objClient.Numero_Telephone;
-//cmd.Parameters.Add("@CIN", SqlDbType.VarChar).Value = objClient.CIN;
-//cmd.Parameters.Add("@Email", SqlDbType.VarChar).Value = objClient.Email;
-//cmd.Parameters.Add("@Banque", SqlDbType.VarChar).Value = objClient.Banque;
-//cmd.Parameters.Add("@Adresse", SqlDbType.VarChar).Value = objClient.Adresse;
-//cmd.Parameters.Add("@Ville", SqlDbType.VarChar).Value = objClient.Ville;
-//cmd.Parameters.Add("@Raison_Sociale", SqlDbType.VarChar).Value = objClient.Raison_Sociale;
-//cmd.Parameters.Add("@Matricule_Fiscale", SqlDbType.VarChar).Value = objClient.Matricule_Fiscale;
-//object obj = cmd.ExecuteScalar();
-//int id = (int)obj;
-//myCon.Close();
-//return id;
