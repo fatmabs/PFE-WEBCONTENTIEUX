@@ -32,7 +32,7 @@ namespace WebAppContentieux.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"Select c.Nom_Client, c.Numero_Telephone, c.CIN, c.Email, c.Banque , c.Adresse, c.Ville, c.Raison_Sociale, c.Matricule_Fiscale, f.Date_Facture, f.Net_a_Payer, f.Scan_Facture from dbo.Client as c , dbo.Facture as f where c.ClientId=f.ClientId "; 
+            string query = @"Select c.ClientId, c.Nom_Client, c.Numero_Telephone, c.CIN, c.Email, c.Banque , c.Adresse, c.Ville, c.Raison_Sociale, c.Matricule_Fiscale, f.Date_Facture, f.Net_a_Payer, f.Scan_Facture from dbo.Client as c , dbo.Facture as f where c.ClientId=f.ClientId "; 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
             SqlDataReader myReader;

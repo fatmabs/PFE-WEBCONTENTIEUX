@@ -57,30 +57,25 @@ namespace WebAppContentieux.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(Facture facture)
+        public decimal Post(Facture facture)
         {
             string fullPath = facture.Scan_Facture;
             var googledriverepo = new GoogleDriveFilesRespository();
             string  fileUrl= googledriverepo.UploadImage(fullPath, "");
             System.IO.File.Delete(facture.Scan_Facture);
 
-            string query = @"Insert into dbo.Facture values('" + facture.Date_Facture + "','" + facture.Net_a_Payer + "','" + fileUrl + "','" + facture.ClientId + "')";
-            DataTable table = new DataTable();
+            string query = @"Insert into dbo.Facture values('" + facture.Date_Facture + "','" + facture.Net_a_Payer + "','" + fileUrl + "','" + facture.ClientId + "') SELECT SCOPE_IDENTITY()";
             string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
-            SqlDataReader myReader;
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
+                SqlCommand cmd = new SqlCommand(query, myCon);
+                cmd.Connection = myCon;
                 myCon.Open();
-                using (SqlCommand myCommand = new SqlCommand(query, myCon))
-                {
-                    myReader = myCommand.ExecuteReader(); 
-                    table.Load(myReader);
-                    myReader.Close();
-                    myCon.Close();
-                }
+                object obj = cmd.ExecuteScalar();
+                decimal id = (decimal)obj;
+                myCon.Close();
+                return id;
             }
-
-            return new JsonResult("Added Successfully");
         }
     }
 }
