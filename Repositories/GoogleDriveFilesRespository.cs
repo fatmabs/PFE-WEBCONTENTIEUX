@@ -23,8 +23,8 @@ namespace WebAppContentieux.Repositories
         {
             var tokenResponse = new TokenResponse
             {
-                AccessToken = "ya29.a0Aa4xrXOERKr6-JiJnxAv6tbNrBeLNi8Nr-xXoKQCJr7DV1pl_dCnIcYajG_Sjtl-vrvZDV8SVrQMRVAcVIq5BY-K33C9wXFcBDE9yYICVruLTFR5bs68WU18sXjcRplHpzvSk9AGhQwjja8ln4IFvqWOPqmvaCgYKATASARASFQEjDvL9Y1LAPEj_J_LGbcaObHP1og0163",
-                RefreshToken = "1//047mVET3SrEEfCgYIARAAGAQSNwF-L9IrojR761UYTrX9kTxZ9_RZFF1-Ecgj_dZvnuVK1i3wsweEatJXZud06AQmMpM8YXqcWcY"
+                AccessToken = "ya29.a0Aa4xrXOcaaEFHuHOex_r15vJbt4OE0_hMydSd79D9ax7oI9_eeU_hmowG1GqOADLRqJEfDKTKCI0oNu5ema7DRPQKjBsXC2xbAUSw90ircgo8Ui-GmMrab_xZ0Tfkzs3Bv3AU5VILkDaboXD00_BICKAygKsaCgYKATASARASFQEjDvL99jWnNZ733pvHVpMl2Fs5NA0163",
+                RefreshToken = "1//04YxtBkpcIpdICgYIARAAGAQSNwF-L9IrpoY7DYRn7iBOVbNfYEWBX6fiOwo7GfAcDCaBKNztbHfsgqFretRs5saEJo-nUdMa1F4"
             };
 
             var applicationName = "WebAppContentieux";// Use the name of the project in Google Cloud
@@ -106,8 +106,9 @@ namespace WebAppContentieux.Repositories
                     {
                         request = _service.Files.Create(body, stream1, GetMimeType(_uploadFile));
                         request.Fields = "id";
-                request.Upload();
+                var result = request.Upload();
                     }
+             
             PermissionsResource.CreateRequest request1 = _service.Permissions.Create(permission, request.ResponseBody.Id);
             request1.Fields = "id";
             request1.Execute();

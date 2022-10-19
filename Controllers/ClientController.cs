@@ -32,7 +32,7 @@ namespace WebAppContentieux.Controllers
         [HttpGet]
         public JsonResult Get()
         {
-            string query = @"Select c.ClientId, c.Nom_Client, c.Numero_Telephone, c.CIN, c.Email, c.Banque , c.Adresse, c.Ville, c.Raison_Sociale, c.Matricule_Fiscale, f.Date_Facture, f.Net_a_Payer, f.Scan_Facture from dbo.Client as c , dbo.Facture as f where c.ClientId=f.ClientId "; 
+            string query = @"Select c.ClientId, c.Nom_Client, c.Numero_Telephone, c.CIN, c.Email, c.Banque , c.Adresse, c.Ville, c.Raison_Sociale, c.Matricule_Fiscale, f.FactureID, f.Date_Facture, f.Net_a_Payer, f.Scan_Facture, p.PaimentID, p.type_paiment, p.intitulaire, p.montant, p.date_paiment, p.scan_paiment from dbo.Client as c , dbo.Facture as f , dbo.Paiment as p where c.ClientId=f.ClientId and f.FactureID=p.FactureID "; 
             DataTable table = new DataTable();
             string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
             SqlDataReader myReader;
@@ -55,8 +55,16 @@ namespace WebAppContentieux.Controllers
         [HttpPost]
         public decimal Post(Client objClient)
         {
-            string query = @"Insert into dbo.Client values('" + objClient.Nom_Client + "','" + objClient.Numero_Telephone + "','" + objClient.CIN + "','" + objClient.Email + "','" + objClient.Banque + "','" + objClient.Adresse + "','" + objClient.Ville + "','" + objClient.Raison_Sociale + "','"
-                 + objClient.Matricule_Fiscale + "') SELECT SCOPE_IDENTITY()";
+            string query = @"Insert into dbo.Client values('" 
+            + objClient.Nom_Client + "','" 
+            + objClient.Numero_Telephone + "','" 
+            + objClient.CIN + "','" 
+            + objClient.Email + "','" 
+            + objClient.Banque + "','" 
+            + objClient.Adresse + "','" 
+            + objClient.Ville + "','" 
+            + objClient.Raison_Sociale + "','"
+            + objClient.Matricule_Fiscale + "') SELECT SCOPE_IDENTITY()";
             string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {

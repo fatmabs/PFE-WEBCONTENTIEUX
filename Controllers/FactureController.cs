@@ -50,6 +50,7 @@ namespace WebAppContentieux.Controllers
                 {
                     myReader = myCommand.ExecuteReader();
                     table.Load(myReader);
+                    myReader.Close();
                     myCon.Close();
                     return new JsonResult(table);
                 }
@@ -60,11 +61,16 @@ namespace WebAppContentieux.Controllers
         public decimal Post(Facture facture)
         {
             string fullPath = facture.Scan_Facture;
+            Console.WriteLine(fullPath);
             var googledriverepo = new GoogleDriveFilesRespository();
             string  fileUrl= googledriverepo.UploadImage(fullPath, "");
             System.IO.File.Delete(facture.Scan_Facture);
 
-            string query = @"Insert into dbo.Facture values('" + facture.Date_Facture + "','" + facture.Net_a_Payer + "','" + fileUrl + "','" + facture.ClientId + "') SELECT SCOPE_IDENTITY()";
+            string query = @"Insert into dbo.Facture values('" 
+            + facture.Date_Facture + "','" 
+            + facture.Net_a_Payer + "','" 
+            + fileUrl + "','" 
+            + facture.ClientId + "') SELECT SCOPE_IDENTITY()";
             string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
             using (SqlConnection myCon = new SqlConnection(sqlDataSource))
             {
@@ -77,6 +83,49 @@ namespace WebAppContentieux.Controllers
                 return id;
             }
         }
+
+        [HttpPut]
+        public JsonResult Put(Facture facture)
+        {
+            var googledriverepo = new GoogleDriveFilesRespository();
+            string sqlDataSource = _configuration.GetConnectionString("ContentieuxAppCon");
+            string query1= @"Select Scan_Facture from dbo.Facture  where FactureID = " + facture.FactureID;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                SqlCommand cmd = new SqlCommand(query1, myCon);
+                cmd.Connection = myCon;
+                myCon.Open();
+                object obj = cmd.ExecuteScalar();
+                string id = (string)obj;
+                myCon.Close();
+
+                googledriverepo.DeleteFile(id);
+            }
+            string fullPath = facture.Scan_Facture;
+
+            string fileUrl = googledriverepo.UploadImage(fullPath, "");
+            System.IO.File.Delete(facture.Scan_Facture);
+
+            string query = @"Update dbo.Facture set
+                Date_Facture = '" + facture.Date_Facture + @"',
+                Net_a_Payer='" + facture.Net_a_Payer + @"',
+                Scan_Facture='" + fileUrl + "' where FactureID = " + facture.FactureID;
+            DataTable table = new DataTable();
+ 
+            SqlDataReader myReader;
+            using (SqlConnection myCon = new SqlConnection(sqlDataSource))
+            {
+                myCon.Open();
+                using (SqlCommand myCommand = new SqlCommand(query, myCon))
+                {
+                    myReader = myCommand.ExecuteReader();
+                    table.Load(myReader);
+                    myReader.Close();
+                    myCon.Close();
+                }
+            }
+            return new JsonResult("Updated Successfully");
+        } 
     }
 }
 
